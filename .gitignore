@@ -1,1 +1,10 @@
+##
 node_modules
+packages/*/node_modules
+
+##
+packages/go-server/bin
+
+##
+packages/dapp/.next/
+packages/dapp/next-env.d.ts
