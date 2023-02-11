@@ -1,7 +1,7 @@
 {
   "name": "immunify-protocol",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
   "author": "Akanimoh Osutuk",
   "license": "MIT",
   "workspaces": [
