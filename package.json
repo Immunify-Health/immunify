@@ -1,0 +1,12 @@
+{
+  "name": "immunify-protocol",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Akanimoh Osutuk",
+  "license": "MIT",
+  "workspaces": [
+    "packages/dapp",
+    "packages/contracts",
+    "packages/go-server"
+  ],
+}
