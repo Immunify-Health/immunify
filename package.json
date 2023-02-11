@@ -8,5 +8,5 @@
     "packages/dapp",
     "packages/contracts",
     "packages/go-server"
-  ],
+  ]
 }
