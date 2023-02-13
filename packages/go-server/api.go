@@ -10,8 +10,8 @@ import (
 )
 
 func WriteJSON(w http.ResponseWriter, status int, v any) error {
-	w.WriteHeader(status)
 	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(status)
 	return json.NewEncoder(w).Encode(v)
 }
 
@@ -33,11 +33,13 @@ func makeHTTPHandleFunc(f apiFunc) http.HandlerFunc {
 
 type APIServer struct {
 	listenAddr string
+	store      Storage
 }
 
-func NewAPIServer(listenAddr string) *APIServer {
+func NewAPIServer(listenAddr string, store Storage) *APIServer {
 	return &APIServer{
 		listenAddr: listenAddr,
+		store:      store,
 	}
 }
 
@@ -45,7 +47,8 @@ func (s *APIServer) Run() {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/records", makeHTTPHandleFunc(s.handleRecord))
-	log.Println("JSON Api server running on port: ", s.listenAddr)
+	router.HandleFunc("/records/{id}", makeHTTPHandleFunc(s.handleGetRecord))
+	log.Println("JSON Api server running on port:", s.listenAddr)
 
 	http.ListenAndServe(s.listenAddr, router)
 }
@@ -67,7 +70,11 @@ func (s *APIServer) handleRecord(w http.ResponseWriter, r *http.Request) error {
 }
 
 func (s *APIServer) handleGetRecord(w http.ResponseWriter, r *http.Request) error {
-	return nil
+	id := mux.Vars(r)["id"]
+
+	fmt.Println(id)
+	// account := NewRecord("Akanimoh", "Osutuk")
+	return WriteJSON(w, http.StatusOK, &Record{})
 }
 
 func (s *APIServer) handleCreateRecord(w http.ResponseWriter, r *http.Request) error {
